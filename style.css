@@ -21,6 +21,9 @@
      font-family: "DM Sans";
      src: url("./weather-app-main/assets/fonts/DMSans-Italic-VariableFont_opsz\,wght.ttf") format("turetype");
      font-style: italic;
+
+
+      /*  i will be back */
  }
 
  @font-face {
@@ -1098,3 +1101,4 @@
          font-size: 1rem;
      }
  }
+

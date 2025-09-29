@@ -28,6 +28,15 @@ async function fetchwheather(location) {
     }
     catch(err){
 
+
+
+
+
+
+
+        // staritng tonight
+
     }
 }
+
 

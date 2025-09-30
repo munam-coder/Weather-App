@@ -28,11 +28,80 @@ async function fetchwheather(location) {
        console.log(`wheather for ${name}, ${country} `);
        console.log(wheahterres)
 
+
+
+
     }
     catch(err){
         console.error("data is not coming ",err)
 
     }
+};
+
+
+function getwheathericon(code){
+    if(code === 0) return "icon-sunny";
+    if([1, 2, 3].includes(code)) return "icon-overcast";
+    if([45, 48].includes(code)) return "icon-fog";
+    if([51, 53, 55].includes(code)) return "icon-drizzle";
+    if([61, 63, 65].includes(code)) return "icon-rain";
+    if([71, 73, 75].includes(code)) return "icon-snow";
+    if([95, 96, 99].includes(code)) return "icon-storm";
+    return "icon-sunny";
 }
+
+
+function showcurrentwheather(mainwheatherdata){
+    
+    let mainwheathertemp = document.querySelector(".show-wheather-container")
+    mainwheatherdata.innerHtml = "";
+
+    let iconfile = getwheathericon(code);
+
+const city = "Berlin, Germany";
+const temperature = 20;
+const weatherIcon = `./icons/${iconfile}`;
+const date = new Date();
+
+// Format date nicely
+const options = { weekday: 'long', month: 'short', day: 'numeric', year: 'numeric' };
+const formattedDate = date.toLocaleDateString('en-US', options);
+
+// Update DOM dynamically using querySelector
+document.querySelector(".city-info h1").textContent = city;
+document.querySelector(".city-info h3").textContent = formattedDate;
+document.querySelector(".temperauremain h1").textContent = `${temperature}°`;
+document.querySelector(".temperauremain img").src = weatherIcon;
+
+
+}
+
+function showwheatherstats(){
+    let stats = document.querySelector(".weather-stats");
+    stats.innerHTML = "";
+
+    // Example dynamic data (replace these with API data)
+const feelsLike = 21;
+const humidity = 53;
+const wind = 10;
+const precipitation = 2;
+
+// Target the second <p> inside each container
+document.querySelector(".feel-like p:nth-child(2)").textContent = `${feelsLike}°`;
+document.querySelector(".Humidity p:nth-child(2)").textContent = `${humidity}%`;
+document.querySelector(".Wind p:nth-child(2)").textContent = `${wind} km/h`;
+document.querySelector(".Precipitationmain p:nth-child(2)").textContent = `${precipitation} mm`;
+
+}
+
+
+function dailyforcast(){
+    let forcast = document.querySelector(".daily-forcast");
+    forcast.innerHTML = "";
+
+    
+
+}
+
 
 

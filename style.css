@@ -21,9 +21,6 @@
      font-family: "DM Sans";
      src: url("./weather-app-main/assets/fonts/DMSans-Italic-VariableFont_opsz\,wght.ttf") format("turetype");
      font-style: italic;
-
-
-      /*  i will be back */
  }
 
  @font-face {
@@ -70,8 +67,13 @@
      width: 12rem;
 
      max-width: 90%;
+     z-index: 20;
 
  }
+
+ .dropdown.dropdowndisplay {
+  display: block; /* visible when toggled */
+}
 
  .dropdown-btn {
      display: flex;
@@ -195,7 +197,6 @@
      justify-content: center;
      margin-top: 1rem;
      gap: 5.3rem;
-     /* flex-wrap: wrap; */
  }
 
  .input input {
@@ -208,7 +209,10 @@
      background-color: hsl(243, 27%, 20%);
      border: none;
  }
-
+input{
+     color: hsl(0, 0%, 100%);
+    
+}
  input ::placeholder {
      color: hsl(0, 0%, 100%);
      opacity: 1;
@@ -1101,4 +1105,3 @@
          font-size: 1rem;
      }
  }
-

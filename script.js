@@ -76,7 +76,7 @@ document.querySelector(".temperauremain img").src = weatherIcon;
 
 }
 
-function showwheatherstats(){
+function showwheatherstats(data){
     let stats = document.querySelector(".weather-stats");
     stats.innerHTML = "";
 
@@ -95,10 +95,38 @@ document.querySelector(".Precipitationmain p:nth-child(2)").textContent = `${pre
 }
 
 
-function dailyforcast(){
+function dailyforcast(dailydata){
     let forcast = document.querySelector(".daily-forcast");
     forcast.innerHTML = "";
+    
+    const {time, temperature_2m_max, temperature_2m_min, weather_code,} = dailydata;
 
+    time.forEach((data, index) => {
+
+         const dayName = new Date(date).toLocaleDateString("en-US", { weekday: "short" });
+
+         let maxtemp = temperature_2m_max[index];
+         let mintemp = temperature_2m_min[index];
+         let code = wheather_code[index];
+
+         let iconfile = getwheathericon(code);
+
+         const day = dayName;
+const icon = `./icons${iconfile}`;
+const temp =  `${maxtemp} / ${mintemp}`;
+
+// Update the card dynamically
+document.querySelector(".forecast-card .day").textContent = dayName;
+document.querySelector(".forecast-card img").src = `./icons${iconfile}`;
+document.querySelector(".forecast-card .temp").textContent = temp;
+
+
+         
+        
+
+
+
+    })
     
 
 }

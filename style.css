@@ -668,9 +668,7 @@ input{
      }
  }
 
- .dropdown-x-days.custom-days-dropdown.show {
-     display: none;
- }
+
 
  .dropdown-day-item {
      color: #fff;
@@ -692,30 +690,7 @@ input{
      background: hsl(243, 23%, 24%);
  }
 
- .days-dropdown-wrapper {
-     position: relative;
-     display: inline-block;
-     width: 100%;
- }
-
-
- .days-dropdown-btn {
-     display: flex;
-     align-items: center;
-     background: hsl(243, 23%, 24%);
-     color: #fff;
-     border: none;
-     border-radius: 7px;
-     padding: 0.3rem 0.6rem;
-     font-size: 0.92rem;
-     font-family: "DM Sans", sans-serif;
-     cursor: pointer;
-     min-width: 120px;
-     justify-content: space-between;
-     transition: background 0.18s;
-     outline: none;
-     width: 98px;
- }
+ 
 
  .days-dropdown-btn:active,
  .days-dropdown-btn:focus {
@@ -727,12 +702,6 @@ input{
      width: 16px;
      height: 16px;
      pointer-events: none;
- }
-
- .days-dropdown-wrapper {
-     position: relative;
-     display: inline-block;
-     width: 100%;
  }
 
  .days-dropdown-btn {
@@ -782,6 +751,12 @@ input{
      animation: fadeIn 0.13s;
  }
 
+.custom-days-dropdown.show {
+      display: flex;
+    }
+ 
+ 
+
  @keyframes fadeIn {
      from {
          opacity: 0;
@@ -816,6 +791,13 @@ input{
      background: hsl(243, 23%, 24%);
  }
 
+ .dropdown-arrow {
+  transition: transform 0.2s ease;
+}
+
+.dropdown-arrow.open {
+  transform: rotate(180deg);
+}
 
  @media only screen and (max-width: 600px) {
      .nav-elements {

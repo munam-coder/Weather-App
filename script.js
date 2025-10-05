@@ -1,5 +1,8 @@
 let unitbtn = document.querySelector(".dropdown-btn");
 let dropdown = document.querySelector(".dropdown");
+let daysdropdown = document.querySelector(".days-dropdown-btn");
+let showdropdown = document.querySelector(".custom-days-dropdown");
+
 
 unitbtn.addEventListener("click", () => {
     dropdown.classList.toggle("dropdowndisplay")
@@ -113,26 +116,22 @@ function dailyforcast(dailydata){
 
          const day = dayName;
 const icon = `./icons${iconfile}`;
-const temp =  `${maxtemp} / ${mintemp}`;
+const temp =  `${maxtemp}/${mintemp}`;
 
-// Update the card dynamically
 document.querySelector(".forecast-card .day").textContent = dayName;
 document.querySelector(".forecast-card img").src = `./icons${iconfile}`;
 document.querySelector(".forecast-card .temp").textContent = temp;
 
-
-         
-        
-
-
-
     })
-
-    // starting tonight
+    
 
 }
 
+daysdropdown.addEventListener("click", () => {
+    showdropdown.classList.toggle("show");
+});
 
-
-
+function hourlyforcast(hourlydata){
+    
+}
 

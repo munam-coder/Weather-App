@@ -1,44 +1,61 @@
-let unitbtn = document.querySelector(".dropdown-btn");
-let dropdown = document.querySelector(".dropdown");
+const unitBtn = document.querySelector(".dropdown-btn");
+const dropdown = document.querySelector(".dropdown");
+
 const dropdownWrapper = document.querySelector(".days-dropdown-wrapper");
 const dropdownBtn = dropdownWrapper.querySelector(".days-dropdown-btn");
 const dropdownMenu = dropdownWrapper.querySelector(".custom-days-dropdown");
 const dropdownItems = dropdownWrapper.querySelectorAll(".dropdown-day-item");
 const selectedDayText = dropdownWrapper.querySelector(".selected-day");
 const dropdownArrow = dropdownWrapper.querySelector(".dropdown-arrow");
-let hourlymain = document.querySelector(".hourly-forecast-cards");
+const hourlyMain = document.querySelector(".hourly-forecast-cards");
 
-unitbtn.addEventListener("click", () => {
-    dropdown.classList.toggle("dropdowndisplay")
+const inp = document.querySelector("input");
+const form = document.querySelector("form");
+
+let currentWeatherData = null;
+
+
+unitBtn.addEventListener("click", () => {
+    dropdown.classList.toggle("dropdowndisplay");
 });
 
-async function fetchwheather(location) {
-    try {
-        let geors = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${location}`)
-        let geodata = await geors.json();
-        console.log(geodata);
 
-        if (!geodata.results || geodata.results.lenght === 0) {
-            console.log("Enter a valid location")
-            return
+async function fetchWeather(location) {
+    try {
+        const geoRes = await fetch(
+            `https://geocoding-api.open-meteo.com/v1/search?name=${location}`
+        );
+        const geoData = await geoRes.json();
+
+        if (!geoData.results || geoData.results.length === 0) {
+            console.log("Enter a valid location");
+            return;
         }
 
-        let { latitude, longitude, name, country } = geodata.results[0];
+        const { latitude, longitude, name, country } = geoData.results[0, 1];
 
-        let wheatherfor = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,weather_code,precipitation_sum&hourly=temperature_2m,apparent_temperature,relative_humidity_2m,precipitation,weather_code,wind_speed_10m&current=temperature_2m,apparent_temperature,relative_humidity_2m,precipitation,weather_code,wind_speed_10m&temperature_unit=celsius&windspeed_unit=kmh&precipitation_unit=mm&timezone=auto`)
+        const weatherRes = await fetch(
+            `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,weather_code,precipitation_sum&hourly=temperature_2m,apparent_temperature,relative_humidity_2m,precipitation,weather_code,wind_speed_10m&current=temperature_2m,apparent_temperature,relative_humidity_2m,precipitation,weather_code,wind_speed_10m&temperature_unit=celsius&windspeed_unit=kmh&precipitation_unit=mm&timezone=auto`
+        );
 
-        let wheahterres = await wheatherfor.json();
+        const weatherData = await weatherRes.json();
+        currentWeatherData = weatherData;
 
-        console.log(`wheather for ${name}, ${country} `);
-        console.log(wheahterres)
+        console.log(`Weather for ${name}, ${country}`);
+        console.log(weatherData);
+
+
+        showCurrentWeather(weatherData.current, name, country);
+        showWeatherStats(weatherData.current);
+        dailyForecast(weatherData.daily);
+        hourlyForecast(weatherData.hourly, 0);
+    } catch (err) {
+        console.error("Data not coming", err);
     }
-    catch (err) {
-        console.error("data is not coming ", err)
+}
 
-    }
-};
 
-function getwheathericon(code) {
+function getWeatherIcon(code) {
     if (code === 0) return "icon-sunny";
     if ([1, 2, 3].includes(code)) return "icon-overcast";
     if ([45, 48].includes(code)) return "icon-fog";
@@ -47,72 +64,81 @@ function getwheathericon(code) {
     if ([71, 73, 75].includes(code)) return "icon-snow";
     if ([95, 96, 99].includes(code)) return "icon-storm";
     return "icon-sunny";
-}
+};
 
 
-function showcurrentwheather(mainwheatherdata) {
+function showCurrentWeather(current, city, country) {
+    const iconFile = getWeatherIcon(current.weather_code);
+    const formattedDate = new Date().toLocaleDateString("en-US", {
+        weekday: "long",
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+    });
 
-    let mainwheathertemp = document.querySelector(".show-wheather-container")
-    mainwheatherdata.innerHtml = "";
-
-    let iconfile = getwheathericon(code);
-
-    const city = "Berlin, Germany";
-    const temperature = 20;
-    const weatherIcon = `./icons/${iconfile}`;
-    const date = new Date();
-    const options = { weekday: 'long', month: 'short', day: 'numeric', year: 'numeric' };
-    const formattedDate = date.toLocaleDateString('en-US', options);
-
-    document.querySelector(".city-info h1").textContent = city;
+    document.querySelector(".city-info h1").textContent = `${city}, ${country}`;
     document.querySelector(".city-info h3").textContent = formattedDate;
-    document.querySelector(".temperauremain h1").textContent = `${temperature}°`;
-    document.querySelector(".temperauremain img").src = weatherIcon;
+    document.querySelector(".temperauremain h1").textContent = `${Math.round(current.temperature_2m)}°`;
+    document.querySelector(".temperauremain img").src = `./icons/${iconFile}.webp`;
 }
 
-function showwheatherstats(data) {
-    let stats = document.querySelector(".weather-stats");
-    stats.innerHTML = "";
 
-    const feelsLike = 21;
-    const humidity = 53;
-    const wind = 10;
-    const precipitation = 2;
-
-    document.querySelector(".feel-like p:nth-child(2)").textContent = `${feelsLike}°`;
-    document.querySelector(".Humidity p:nth-child(2)").textContent = `${humidity}%`;
-    document.querySelector(".Wind p:nth-child(2)").textContent = `${wind} km/h`;
-    document.querySelector(".Precipitationmain p:nth-child(2)").textContent = `${precipitation} mm`;
-
+function showWeatherStats(current) {
+    document.querySelector(".feel-like p:nth-child(2)").textContent = `${Math.round(current.apparent_temperature)}°`;
+    document.querySelector(".Humidity p:nth-child(2)").textContent = `${current.relative_humidity_2m}%`;
+    document.querySelector(".Wind p:nth-child(2)").textContent = `${current.wind_speed_10m} km/h`;
+    document.querySelector(".Precipitationmain p:nth-child(2)").textContent = `${current.precipitation} mm`;
 }
 
-function dailyforcast(dailydata) {
-    let forcast = document.querySelector(".daily-forcast");
-    forcast.innerHTML = "";
 
-    const { time, temperature_2m_max, temperature_2m_min, weather_code, } = dailydata;
+function dailyForecast(daily) {
+    const forecast = document.querySelector(".daily-forcast");
+    forecast.innerHTML = "";
 
-    time.forEach((data, index) => {
-
+    daily.time.forEach((date, index) => {
         const dayName = new Date(date).toLocaleDateString("en-US", { weekday: "short" });
+        const max = Math.round(daily.temperature_2m_max[index]);
+        const min = Math.round(daily.temperature_2m_min[index]);
+        const code = daily.weather_code[index];
+        const iconFile = getWeatherIcon(code);
 
-        let maxtemp = temperature_2m_max[index];
-        let mintemp = temperature_2m_min[index];
-        let code = wheather_code[index];
-
-        let iconfile = getwheathericon(code);
-
-        const day = dayName;
-        const icon = `./icons${iconfile}`;
-        const temp = `${maxtemp}/${mintemp}`;
-
-        document.querySelector(".forecast-card .day").textContent = dayName;
-        document.querySelector(".forecast-card img").src = `./icons${iconfile}`;
-        document.querySelector(".forecast-card .temp").textContent = temp;
-
-    })
-
+        forecast.innerHTML += `
+      <div class="forecast-card">
+        <p class="day">${dayName}</p>
+        <img src="./icons/${iconFile}.webp" alt="Weather icon">
+        <p class="temp">${max}° / ${min}°</p>
+      </div>
+    `;
+    });
 }
+
+
+function hourlyForecast(hourly, selectedDay) {
+    hourlyMain.innerHTML = "";
+
+    const hoursPerDay = 24;
+    const start = selectedDay * hoursPerDay;
+    const end = start + hoursPerDay;
+
+    const dayHours = hourly.time.slice(start, end);
+    const temps = hourly.temperature_2m.slice(start, end);
+    const codes = hourly.weather_code.slice(start, end);
+
+    dayHours.forEach((time, index) => {
+        const hourLabel = new Date(time).getHours().toString().padStart(2, "0") + ":00";
+        const iconFile = getWeatherIcon(codes[index]);
+        const temp = Math.round(temps[index]);
+
+        hourlyMain.innerHTML += `
+      <div class="hourly-forecast-card">
+        <img src="./icons/${iconFile}.webp" alt="icon">
+        <span class="hour-label">${hourLabel}</span>
+        <span class="hour-temp">${temp}°</span>
+      </div>
+    `;
+    });
+}
+
 
 dropdownBtn.addEventListener("click", (e) => {
     e.stopPropagation();
@@ -120,34 +146,27 @@ dropdownBtn.addEventListener("click", (e) => {
     dropdownArrow.classList.toggle("open");
 });
 
-dropdownItems.forEach((item) => {
+dropdownItems.forEach((item, index) => {
     item.addEventListener("click", () => {
         dropdownMenu.classList.remove("show");
         dropdownArrow.classList.remove("open");
+        selectedDayText.textContent = item.textContent;
 
+        if (currentWeatherData) {
+            hourlyForecast(currentWeatherData.hourly, index);
+        }
     });
 });
 
-function hourlyforcast(hourlydata, selectedday) {
-    hourlymain.innerHTML = "";
 
-    const {time, temperature_2m_max, wheather_code} = hourlydata;
+form.addEventListener("submit", (e) => {
 
-    hourlydataforday.forEach( (hour, index) => {
-         const iconFile = getWeatherIcon(wheather_code[index]); 
-  const timeLabel = formatHour(time[index]); 
-  const temp = Math.round(temperature_2m_max[index]); 
+    e.preventDefault();
+    const location = inp.value.trim();
 
-   hourlyContainer.innerHTML += `
-    <div class="hourly-forecast-card">
-        <img src="./assets/icons/${iconFile}.webp" 
-             alt="Weather Icon"
-             class="hourly-weather-icon" />
-        <span class="hour-label">${timeLabel}</span>
-        <span class="hour-temp">${temp}°</span>
-    </div>
-  `;
-    });
-
-}
-
+    if (!location) {
+        console.log("enter a valid location");
+        return
+    };
+    fetchWeather(location);
+})

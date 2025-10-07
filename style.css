@@ -72,8 +72,9 @@
  }
 
  .dropdown.dropdowndisplay {
-  display: block; /* visible when toggled */
-}
+     display: block;
+     /* visible when toggled */
+ }
 
  .dropdown-btn {
      display: flex;
@@ -209,10 +210,12 @@
      background-color: hsl(243, 27%, 20%);
      border: none;
  }
-input{
+
+ input {
      color: hsl(0, 0%, 100%);
-    
-}
+
+ }
+
  input ::placeholder {
      color: hsl(0, 0%, 100%);
      opacity: 1;
@@ -240,31 +243,33 @@ input{
      background-color: hsl(248, 70%, 36%);
  }
 
- .not-found{
-    color: hsl(0, 0%, 100%) ;
-    font-family: "DM Sans";
-    text-align: center;
-    margin-top: 1rem;
-    display: none;
+ .not-found {
+     color: hsl(0, 0%, 100%);
+     font-family: "DM Sans";
+     text-align: center;
+     margin-top: 1rem;
+     display: none;
  }
 
- .failed-api{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    text-align: center;
-    font-family: "DM Sans";
-    gap: 10px;
-    display: none;
- }
- .failed-api h1{
-    color: hsl(0, 0%, 100%) ;
+ .failed-api {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     flex-direction: column;
+     text-align: center;
+     font-family: "DM Sans";
+     gap: 10px;
+     display: none;
  }
 
- .failed-api p{
-    color: hsl(240, 6%, 70%);
+ .failed-api h1 {
+     color: hsl(0, 0%, 100%);
  }
+
+ .failed-api p {
+     color: hsl(240, 6%, 70%);
+ }
+
  .main-wheather-continer {
      display: flex;
      gap: 1rem;
@@ -431,8 +436,8 @@ input{
  .hourly-forcast {
      background: hsl(243, 27%, 20%);
      border-radius: 16px;
-     width: 90vw;
-     max-width: 240px;
+     width: auto;
+     max-width: 271px;
      min-width: 140px;
      padding: 0 0 1.2rem 0;
      margin-top: 1.3rem;
@@ -440,7 +445,9 @@ input{
      flex-direction: column;
      gap: 0.5rem;
      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-     min-height: 370px;
+     height: auto;
+     min-height: 420px;
+     max-height: 80vh;
  }
 
  .hourly-forecast-header {
@@ -570,7 +577,7 @@ input{
      font-size: 0.92rem;
      font-family: "DM Sans", sans-serif;
      cursor: pointer;
-     width: 98px;
+
      justify-content: space-between;
      transition: background 0.18s;
      outline: none;
@@ -690,7 +697,7 @@ input{
      background: hsl(243, 23%, 24%);
  }
 
- 
+
 
  .days-dropdown-btn:active,
  .days-dropdown-btn:focus {
@@ -719,7 +726,8 @@ input{
      justify-content: space-between;
      transition: background 0.18s;
      outline: none;
-     width: 80px;
+     width: auto;
+     max-width: 200px;
      height: 2rem;
  }
 
@@ -734,6 +742,7 @@ input{
      height: 16px;
      pointer-events: none;
  }
+
 
 
  .dropdown-x-days.custom-days-dropdown {
@@ -751,11 +760,11 @@ input{
      animation: fadeIn 0.13s;
  }
 
-.custom-days-dropdown.show {
-      display: flex;
-    }
- 
- 
+ .custom-days-dropdown.show {
+     display: flex;
+ }
+
+
 
  @keyframes fadeIn {
      from {
@@ -792,12 +801,12 @@ input{
  }
 
  .dropdown-arrow {
-  transition: transform 0.2s ease;
-}
+     transition: transform 0.2s ease;
+ }
 
-.dropdown-arrow.open {
-  transform: rotate(180deg);
-}
+ .dropdown-arrow.open {
+     transform: rotate(180deg);
+ }
 
  @media only screen and (max-width: 600px) {
      .nav-elements {
@@ -1009,9 +1018,9 @@ input{
 
 
      .hourly-forcast {
-         width: 85%;
-         max-width: none;
-         min-width: unset;
+         width: auto;
+         max-width: 90vw;
+         min-width: 80vw;
          margin: 1.5rem auto 0;
          border-radius: 14px;
          background: hsl(243, 27%, 20%);

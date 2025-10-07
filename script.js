@@ -50,8 +50,10 @@ async function fetchWeather(location) {
         dailyForecast(weatherData.daily);
         hourlyForecast(weatherData.hourly, 0);
     } catch (err) {
+        document.querySelector(".failed-api").style.display = "flex"
         console.error("Data not coming", err);
-    }
+
+    };
 }
 
 
@@ -63,8 +65,9 @@ function getWeatherIcon(code) {
     if ([61, 63, 65].includes(code)) return "icon-rain";
     if ([71, 73, 75].includes(code)) return "icon-snow";
     if ([95, 96, 99].includes(code)) return "icon-storm";
-    return "icon-sunny";
-};
+    return "icon-sunny"; 
+}
+
 
 
 function showCurrentWeather(current, city, country) {
@@ -76,10 +79,11 @@ function showCurrentWeather(current, city, country) {
         year: "numeric",
     });
 
+
     document.querySelector(".city-info h1").textContent = `${city}, ${country}`;
     document.querySelector(".city-info h3").textContent = formattedDate;
     document.querySelector(".temperauremain h1").textContent = `${Math.round(current.temperature_2m)}°`;
-    document.querySelector(".temperauremain img").src = `./icons/${iconFile}.webp`;
+    document.querySelector(".temperauremain img").src = `./weather-app-main/assets/icons/${iconFile}.webp`;
 }
 
 
@@ -105,7 +109,7 @@ function dailyForecast(daily) {
         forecast.innerHTML += `
       <div class="forecast-card">
         <p class="day">${dayName}</p>
-        <img src="./icons/${iconFile}.webp" alt="Weather icon">
+      <img src="./weather-app-main/assets/icons/${iconFile}.webp" alt="Weather icon">
         <p class="temp">${max}° / ${min}°</p>
       </div>
     `;
@@ -116,22 +120,29 @@ function dailyForecast(daily) {
 function hourlyForecast(hourly, selectedDay) {
     hourlyMain.innerHTML = "";
 
-    const hoursPerDay = 24;
-    const start = selectedDay * hoursPerDay;
-    const end = start + hoursPerDay;
+  
+  const hoursPerDay = 24;
+  const start = selectedDay * hoursPerDay;
+  const end = start + hoursPerDay;
 
-    const dayHours = hourly.time.slice(start, end);
-    const temps = hourly.temperature_2m.slice(start, end);
-    const codes = hourly.weather_code.slice(start, end);
+  const dayHours = hourly.time.slice(start, end);
+  const temps = hourly.temperature_2m.slice(start, end);
+  const codes = hourly.weather_code.slice(start, end);
 
-    dayHours.forEach((time, index) => {
+  const limitedHours = dayHours.slice(0, 8);
+  const limitedTemps = temps.slice(0, 8);
+  const limitedCodes = codes.slice(0, 8);
+
+    limitedHours.forEach((time, index) => {
         const hourLabel = new Date(time).getHours().toString().padStart(2, "0") + ":00";
         const iconFile = getWeatherIcon(codes[index]);
         const temp = Math.round(temps[index]);
 
         hourlyMain.innerHTML += `
       <div class="hourly-forecast-card">
-        <img src="./icons/${iconFile}.webp" alt="icon">
+    <img src="./weather-app-main/assets/icons/${iconFile}.webp" 
+     alt="icon" 
+     style="width: 25px; height: 25px;" />
         <span class="hour-label">${hourLabel}</span>
         <span class="hour-temp">${temp}°</span>
       </div>
@@ -169,4 +180,8 @@ form.addEventListener("submit", (e) => {
         return
     };
     fetchWeather(location);
-})
+});
+
+
+
+

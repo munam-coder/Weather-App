@@ -13,6 +13,7 @@ const inp = document.querySelector("input");
 const form = document.querySelector("form");
 
 let currentWeatherData = null;
+let currentUnit = "metric";
 
 
 unitBtn.addEventListener("click", () => {
@@ -32,7 +33,7 @@ async function fetchWeather(location) {
             return;
         }
 
-        const { latitude, longitude, name, country } = geoData.results[0, 1];
+        const { latitude, longitude, name, country } = geoData.results[0];
 
         const weatherRes = await fetch(
             `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,weather_code,precipitation_sum&hourly=temperature_2m,apparent_temperature,relative_humidity_2m,precipitation,weather_code,wind_speed_10m&current=temperature_2m,apparent_temperature,relative_humidity_2m,precipitation,weather_code,wind_speed_10m&temperature_unit=celsius&windspeed_unit=kmh&precipitation_unit=mm&timezone=auto`
@@ -68,6 +69,12 @@ function getWeatherIcon(code) {
     return "icon-sunny"; 
 }
 
+function convertTemperature(tempCelsius) {
+    if (currentUnit === "imperial") {
+        return (tempCelsius * 9 / 5) + 32;
+    }
+    return tempCelsius;
+}
 
 
 function showCurrentWeather(current, city, country) {
@@ -82,13 +89,17 @@ function showCurrentWeather(current, city, country) {
 
     document.querySelector(".city-info h1").textContent = `${city}, ${country}`;
     document.querySelector(".city-info h3").textContent = formattedDate;
-    document.querySelector(".temperauremain h1").textContent = `${Math.round(current.temperature_2m)}°`;
+   const temp = Math.round(convertTemperature(current.temperature_2m));
+const symbol = currentUnit === "imperial" ? "°F" : "°C";
+document.querySelector(".temperauremain h1").textContent = `${temp}${symbol}`;
     document.querySelector(".temperauremain img").src = `./weather-app-main/assets/icons/${iconFile}.webp`;
 }
 
 
 function showWeatherStats(current) {
-    document.querySelector(".feel-like p:nth-child(2)").textContent = `${Math.round(current.apparent_temperature)}°`;
+   const feel = Math.round(convertTemperature(current.apparent_temperature));
+const symbol = currentUnit === "imperial" ? "°F" : "°C";
+document.querySelector(".feel-like p:nth-child(2)").textContent = `${feel}${symbol}`;
     document.querySelector(".Humidity p:nth-child(2)").textContent = `${current.relative_humidity_2m}%`;
     document.querySelector(".Wind p:nth-child(2)").textContent = `${current.wind_speed_10m} km/h`;
     document.querySelector(".Precipitationmain p:nth-child(2)").textContent = `${current.precipitation} mm`;
@@ -101,8 +112,9 @@ function dailyForecast(daily) {
 
     daily.time.forEach((date, index) => {
         const dayName = new Date(date).toLocaleDateString("en-US", { weekday: "short" });
-        const max = Math.round(daily.temperature_2m_max[index]);
-        const min = Math.round(daily.temperature_2m_min[index]);
+      const max = Math.round(convertTemperature(daily.temperature_2m_max[index]));
+const min = Math.round(convertTemperature(daily.temperature_2m_min[index]));
+const symbol = currentUnit === "imperial" ? "°F" : "°C";
         const code = daily.weather_code[index];
         const iconFile = getWeatherIcon(code);
 
@@ -110,7 +122,7 @@ function dailyForecast(daily) {
       <div class="forecast-card">
         <p class="day">${dayName}</p>
       <img src="./weather-app-main/assets/icons/${iconFile}.webp" alt="Weather icon">
-        <p class="temp">${max}° / ${min}°</p>
+       <p class="temp">${max}${symbol} / ${min}${symbol}</p>
       </div>
     `;
     });
@@ -120,10 +132,11 @@ function dailyForecast(daily) {
 function hourlyForecast(hourly, selectedDay) {
     hourlyMain.innerHTML = "";
 
-  
+//   understanding pending
   const hoursPerDay = 24;
   const start = selectedDay * hoursPerDay;
   const end = start + hoursPerDay;
+
 
   const dayHours = hourly.time.slice(start, end);
   const temps = hourly.temperature_2m.slice(start, end);
@@ -136,7 +149,8 @@ function hourlyForecast(hourly, selectedDay) {
     limitedHours.forEach((time, index) => {
         const hourLabel = new Date(time).getHours().toString().padStart(2, "0") + ":00";
         const iconFile = getWeatherIcon(codes[index]);
-        const temp = Math.round(temps[index]);
+      const temp = Math.round(convertTemperature(temps[index]));
+const symbol = currentUnit === "imperial" ? "°F" : "°C";
 
         hourlyMain.innerHTML += `
       <div class="hourly-forecast-card">
@@ -144,7 +158,7 @@ function hourlyForecast(hourly, selectedDay) {
      alt="icon" 
      style="width: 25px; height: 25px;" />
         <span class="hour-label">${hourLabel}</span>
-        <span class="hour-temp">${temp}°</span>
+       <span class="hour-temp">${temp}${symbol}</span>
       </div>
     `;
     });

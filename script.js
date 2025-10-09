@@ -199,3 +199,63 @@ form.addEventListener("submit", (e) => {
 
 
 
+
+const celsiusBtn = document.querySelector(".Celsiusbtn");
+const fahrenheitBtn = document.querySelector(".Fahrenheitbtn");
+const kmhBtn = document.querySelector(".kmh-btn");
+const mphBtn = document.querySelector(".mph");
+const mmBtn = document.querySelector(".Millimetersbtn");
+const inchesBtn = document.querySelector(".Inchesbtn");
+
+function updateDisplay() {
+  if (!currentWeatherData) return;
+  const { current, daily, hourly } = currentWeatherData;
+  const [city, country] = document.querySelector(".city-info h1").textContent.split(",");
+  showCurrentWeather(current, city, country);
+  showWeatherStats(current);
+  dailyForecast(daily);
+  hourlyForecast(hourly, 0);
+}
+
+
+let currentUnits = {
+  temperature: "metric", // "metric" (°C) or "imperial" (°F)
+  wind: "kmh",           // "kmh" or "mph"
+  precipitation: "mm"    // "mm" or "in"
+};
+
+// Event listeners for unit switches
+celsiusBtn.addEventListener("click", () => {
+  currentUnits.temperature = "metric";
+  updateDisplay();
+});
+
+fahrenheitBtn.addEventListener("click", () => {
+  currentUnits.temperature = "imperial";
+  updateDisplay();
+});
+
+kmhBtn.addEventListener("click", () => {
+  currentUnits.wind = "kmh";
+  updateDisplay();
+});
+
+mphBtn.addEventListener("click", () => {
+  currentUnits.wind = "mph";
+  updateDisplay();
+});
+
+mmBtn.addEventListener("click", () => {
+  currentUnits.precipitation = "mm";
+  updateDisplay();
+});
+
+inchesBtn.addEventListener("click", () => {
+  currentUnits.precipitation = "in";
+  updateDisplay();
+});
+
+
+
+
+

@@ -1,6 +1,7 @@
 const unitBtn = document.querySelector(".dropdown-btn");
 const dropdown = document.querySelector(".dropdown");
 
+// Day selector dropdown
 const dropdownWrapper = document.querySelector(".days-dropdown-wrapper");
 const dropdownBtn = dropdownWrapper.querySelector(".days-dropdown-btn");
 const dropdownMenu = dropdownWrapper.querySelector(".custom-days-dropdown");
@@ -11,10 +12,11 @@ const hourlyMain = document.querySelector(".hourly-forecast-cards");
 
 const inp = document.querySelector("input");
 const form = document.querySelector("form");
+const searchBtn = document.querySelector(".searchbtn button");
 
 let currentWeatherData = null;
 
-
+// Unit buttons
 const celsiusBtn = document.querySelector(".Celsiusbtn");
 const fahrenheitBtn = document.querySelector(".Fahrenheitbtn");
 const kmhBtn = document.querySelector(".kmh-btn");
@@ -22,18 +24,18 @@ const mphBtn = document.querySelector(".mph");
 const mmBtn = document.querySelector(".Millimetersbtn");
 const inchesBtn = document.querySelector(".Inchesbtn");
 
-
+// Track selected units
 let currentUnits = {
-  temperature: "metric", 
-  wind: "kmh",           
-  precipitation: "mm"    
+  temperature: "metric", // "metric" = °C, "imperial" = °F
+  wind: "kmh",           // "kmh" or "mph"
+  precipitation: "mm"    // "mm" or "in"
 };
 
 unitBtn.addEventListener("click", () => {
   dropdown.classList.toggle("dropdowndisplay");
 });
 
-
+// ========== Fetch Weather Data ==========
 async function fetchWeather(location) {
   try {
     const geoRes = await fetch(
@@ -69,7 +71,7 @@ async function fetchWeather(location) {
   }
 }
 
-
+// ========== Icon Logic ==========
 function getWeatherIcon(code) {
   if (code === 0) return "icon-sunny";
   if ([1, 2, 3].includes(code)) return "icon-overcast";
@@ -81,7 +83,7 @@ function getWeatherIcon(code) {
   return "icon-sunny";
 }
 
-
+// ========== Conversion Helpers ==========
 function convertTemperature(tempC) {
   return currentUnits.temperature === "imperial" ? (tempC * 9) / 5 + 32 : tempC;
 }
@@ -94,6 +96,7 @@ function convertPrecipitation(mm) {
   return currentUnits.precipitation === "in" ? mm / 25.4 : mm;
 }
 
+// ========== Update Display ==========
 function updateDisplay() {
   if (!currentWeatherData) return;
   const { current, daily, hourly } = currentWeatherData;
@@ -104,7 +107,7 @@ function updateDisplay() {
   hourlyForecast(hourly, 0);
 }
 
-
+// ========== Display Functions ==========
 function showCurrentWeather(current, city, country) {
   const iconFile = getWeatherIcon(current.weather_code);
   const formattedDate = new Date().toLocaleDateString("en-US", {
@@ -137,7 +140,7 @@ function showWeatherStats(current) {
   document.querySelector(".Precipitationmain p:nth-child(2)").textContent = `${precipitation} ${precipitationSymbol}`;
 }
 
-
+// ✅ Daily Forecast (with unit update)
 function dailyForecast(daily) {
   const forecast = document.querySelector(".daily-forcast");
   forecast.innerHTML = "";
@@ -160,6 +163,7 @@ function dailyForecast(daily) {
   });
 }
 
+// ✅ Hourly Forecast (with unit update)
 function hourlyForecast(hourly, selectedDay) {
   hourlyMain.innerHTML = "";
 
@@ -193,7 +197,7 @@ function hourlyForecast(hourly, selectedDay) {
   });
 }
 
-
+// ========== Dropdown Events ==========
 dropdownBtn.addEventListener("click", (e) => {
   e.stopPropagation();
   dropdownMenu.classList.toggle("show");
@@ -209,15 +213,31 @@ dropdownItems.forEach((item, index) => {
   });
 });
 
+// ========== Search Form ==========
+// form.addEventListener("submit", (e) => {
+//   e.preventDefault();
+//   const location = inp.value.trim();
+//   if (!location) return console.log("Enter a valid location");
+//   fetchWeather(location);
+// });
 
-form.addEventListener("submit", (e) => {
+// const form = document.querySelector("form");
+// const inp = document.querySelector("input");
+
+
+form.addEventListener("submit", handleSearch);
+searchBtn.addEventListener("click", handleSearch);
+
+function handleSearch(e) {
   e.preventDefault();
   const location = inp.value.trim();
   if (!location) return console.log("Enter a valid location");
   fetchWeather(location);
-});
+}
 
 
+
+// ========== Unit Switch Buttons ==========
 function closeDropdown() {
   dropdown.classList.remove("dropdowndisplay");
 }
@@ -257,4 +277,3 @@ inchesBtn.addEventListener("click", () => {
   updateDisplay();
   closeDropdown();
 });
-

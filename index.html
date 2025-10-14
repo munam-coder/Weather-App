@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wheather Now</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="./weather-app-main/assets/images/favicon-32x32.png" type="image/x-icon">
+</head>
+
+<body>
+    <main>
+        <nav>
+            <div class="nav-elements">
+                <div class="logo"><img src="./weather-app-main/assets/images/logo.svg" alt="" class="main-logo"></div>
+
+                <button class="dropdown-btn"> <img src="./weather-app-main/assets/images/icon-units.svg" alt=""
+                        class="unitimg">
+                    <p> Units </p><img src="./weather-app-main/assets/images/arrow-down-s-line.svg" alt=""
+                        class="downimgunit">
+                </button>
+            </div>
+            <div class="dropdown">
+                <div class="dropdown-menu">
+                    <div class="drop-down-item-switch">
+                        Switch to Imperial
+                    </div>
+
+                    <div class="temperature">
+                        <p>Temperature</p>
+                        <button class="Celsiusbtn">Celsius (°C) <img
+                                src="./weather-app-main/assets/images/icon-checkmark.svg" alt=""
+                                class="checkimg"></button>
+                        <button class="Fahrenheitbtn">Fahrenheit(°F) <img
+                                src="./weather-app-main/assets/images/icon-checkmark.svg" alt=""
+                                class="checkimg"></button>
+                    </div>
+                    .
+                    <div class="line"></div>
+
+                    <div class="wind-speed">
+                        <p>Wind Speed</p>
+                        <button class="kmh-btn">km/h <img src="./weather-app-main/assets/images/icon-checkmark.svg"
+                                alt="" class="checkimg"></button>
+                        <button class="mph">mph <img src="./weather-app-main/assets/images/icon-checkmark.svg" alt=""
+                                class="checkimg"></button>
+                    </div>
+
+                    <div class="line2"></div>
+
+                    <div class="Precipitation">
+                        <p> Precipitation</p>
+                        <button class="Millimetersbtn">Millimeters(mm) <img
+                                src="./weather-app-main/assets/images/icon-checkmark.svg" alt=""
+                                class="checkimg"></button>
+                        <button class="Inchesbtn">Inches(in) <img
+                                src="./weather-app-main/assets/images/icon-checkmark.svg" alt=""
+                                class="checkimg"></button>
+                    </div>
+
+                </div>
+            </div>
+        </nav>
+        <div class="main-heading">
+            <h1>How's the sky looking today?</h1>
+        </div>
+        <div class="input">
+            <form>
+                <input type="text"  placeholder=  "Search for a city" >
+            </form>
+            <div class="searchbtn">
+                <button type="submit">Search</button>
+            </div>
+            <div class="city-results"></div>
+        </div>
+        <div class="not-found">
+           <h3> No search result found!</h3>
+        </div>
+        <div class="main-wheather-continer">
+            <div class="right-content">
+                
+                <div class="show-wheather-container">
+                    <div class="city-info">
+                        <h1>Berlin Germany</h1>
+                        <h3>Tuesday, Aug 5, 2025 </h3>
+                    </div>
+                    <div class="temperauremain">
+                        <img src="./weather-app-main/assets/images/icon-sunny.webp" alt="">
+                        <h1>20°</h1>
+                    </div>
+                </div>
+                <div class="weather-stats">
+                    <div class="feel-like">
+                        <p>Feels like</p>
+                        <p>18°</p>
+                    </div>
+                    <div class="Humidity">
+                        <p>Humidity</p>
+                        <p>46%</p>
+
+                    </div>
+                    <div class="Wind">
+                        <p>Wind</p>
+                        <p>14 km/h</p>
+                    </div>
+                    <div class="Precipitationmain">
+                        <p>Precipitation</p>
+                        <p>0 mm</p>
+                    </div>
+                </div>
+
+                <p class="forecast-heading">Daily forecast</p>
+                <div class="daily-forcast">
+                    <div class="forecast-card">
+                        <p class="day">Mon</p>
+                        <img src="./weather-app-main/assets/images/icon-partly-cloudy.webp" alt="">
+                        <p class="temp">28° / 18°</p>
+                    </div>
+                 
+                    
+                </div>
+            </div>
+            <div class="left-content">
+                <div class="hourly-forcast">
+                    <div class="hourly-forecast-header">
+                        <span class="hourly-forecast-title">Hourly forecast</span>
+                        <div class="days-dropdown-wrapper">
+                            <button class="days-dropdown-btn" tabindex="0">
+                                <span class="selected-day">Days</span>
+                                <img src="./weather-app-main/assets/images/arrow-down-s-line.svg" alt="Dropdown"
+                                    class="dropdown-arrow" />
+                            </button>
+                            <div class="dropdown-x-days custom-days-dropdown">
+                                <button class="dropdown-day-item " tabindex="0">Monday</button>
+                                <button class="dropdown-day-item" tabindex="0">Tuesday</button>
+                                <button class="dropdown-day-item" tabindex="0">Wednesday</button>
+                                <button class="dropdown-day-item" tabindex="0">Thursday</button>
+                                <button class="dropdown-day-item" tabindex="0">Friday</button>
+                                <button class="dropdown-day-item" tabindex="0">Saturday</button>
+                                <button class="dropdown-day-item" tabindex="0">Sunday</button>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="hourly-forecast-cards">
+                        <!-- add dynammically -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="failed-api">
+            <img src="./weather-app-main/assets/images/forbidden-10030.svg" alt="" height="70px" width="70px">
+            <h1>Something went wrong</h1>
+            <p>We couldn't connect to the server(api error) please try again <br>in few moments</p>
+        </div>
+        </div>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>

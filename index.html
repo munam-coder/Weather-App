@@ -6,19 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wheather Now</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="shortcut icon" href="./weather-app-main/assets/images/favicon-32x32.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/assets/images/favicon-32x32.png" type="image/x-icon">
 </head>
 
 <body>
     <main>
         <nav>
             <div class="nav-elements">
-                <div class="logo"><img src="./assets/images/logo.svg" alt="" class="main-logo"></div>
+                <div class="logo"><img src="/assets/images/logo.svg" alt="" class="main-logo"></div>
 
-                <button class="dropdown-btn"> <img src="./weather-app-main/assets/images/icon-units.svg" alt=""
-                        class="unitimg">
-                    <p> Units </p><img src="./weather-app-main/assets/images/arrow-down-s-line.svg" alt=""
-                        class="downimgunit">
+                <button class="dropdown-btn">
+                    <img src="/assets/images/icon-units.svg" alt="" class="unitimg">
+                    <p>Units</p>
+                    <img src="/assets/images/arrow-down-s-line.svg" alt="" class="downimgunit">
                 </button>
             </div>
             <div class="dropdown">
@@ -29,34 +29,36 @@
 
                     <div class="temperature">
                         <p>Temperature</p>
-                        <button class="Celsiusbtn">Celsius (°C) <img
-                                src="./weather-app-main/assets/images/icon-checkmark.svg" alt=""
-                                class="checkimg"></button>
-                        <button class="Fahrenheitbtn">Fahrenheit(°F) <img
-                                src="./weather-app-main/assets/images/icon-checkmark.svg" alt=""
-                                class="checkimg"></button>
+                        <button class="Celsiusbtn">Celsius (°C)
+                            <img src="/assets/images/icon-checkmark.svg" alt="" class="checkimg">
+                        </button>
+                        <button class="Fahrenheitbtn">Fahrenheit(°F)
+                            <img src="/assets/images/icon-checkmark.svg" alt="" class="checkimg">
+                        </button>
                     </div>
-                    .
+
                     <div class="line"></div>
 
                     <div class="wind-speed">
                         <p>Wind Speed</p>
-                        <button class="kmh-btn">km/h <img src="./weather-app-main/assets/images/icon-checkmark.svg"
-                                alt="" class="checkimg"></button>
-                        <button class="mph">mph <img src="./weather-app-main/assets/images/icon-checkmark.svg" alt=""
-                                class="checkimg"></button>
+                        <button class="kmh-btn">km/h
+                            <img src="/assets/images/icon-checkmark.svg" alt="" class="checkimg">
+                        </button>
+                        <button class="mph">mph
+                            <img src="/assets/images/icon-checkmark.svg" alt="" class="checkimg">
+                        </button>
                     </div>
 
                     <div class="line2"></div>
 
                     <div class="Precipitation">
-                        <p> Precipitation</p>
-                        <button class="Millimetersbtn">Millimeters(mm) <img
-                                src="./weather-app-main/assets/images/icon-checkmark.svg" alt=""
-                                class="checkimg"></button>
-                        <button class="Inchesbtn">Inches(in) <img
-                                src="./weather-app-main/assets/images/icon-checkmark.svg" alt=""
-                                class="checkimg"></button>
+                        <p>Precipitation</p>
+                        <button class="Millimetersbtn">Millimeters(mm)
+                            <img src="/assets/images/icon-checkmark.svg" alt="" class="checkimg">
+                        </button>
+                        <button class="Inchesbtn">Inches(in)
+                            <img src="/assets/images/icon-checkmark.svg" alt="" class="checkimg">
+                        </button>
                     </div>
 
                 </div>
@@ -67,7 +69,7 @@
         </div>
         <div class="input">
             <form>
-                <input type="text"  placeholder=  "Search for a city" >
+                <input type="text" placeholder="Search for a city">
             </form>
             <div class="searchbtn">
                 <button type="submit">Search</button>
@@ -75,18 +77,18 @@
             <div class="city-results"></div>
         </div>
         <div class="not-found">
-           <h3> No search result found!</h3>
+            <h3>No search result found!</h3>
         </div>
         <div class="main-wheather-continer">
             <div class="right-content">
-                
+
                 <div class="show-wheather-container">
                     <div class="city-info">
                         <h1>Berlin Germany</h1>
-                        <h3>Tuesday, Aug 5, 2025 </h3>
+                        <h3>Tuesday, Aug 5, 2025</h3>
                     </div>
                     <div class="temperauremain">
-                        <img src="./weather-app-main/assets/images/icon-sunny.webp" alt="">
+                        <img src="/assets/images/icon-sunny.webp" alt="">
                         <h1>20°</h1>
                     </div>
                 </div>
@@ -98,7 +100,6 @@
                     <div class="Humidity">
                         <p>Humidity</p>
                         <p>46%</p>
-
                     </div>
                     <div class="Wind">
                         <p>Wind</p>
@@ -114,11 +115,9 @@
                 <div class="daily-forcast">
                     <div class="forecast-card">
                         <p class="day">Mon</p>
-                        <img src="./weather-app-main/assets/images/icon-partly-cloudy.webp" alt="">
+                        <img src="/assets/images/icon-partly-cloudy.webp" alt="">
                         <p class="temp">28° / 18°</p>
                     </div>
-                 
-                    
                 </div>
             </div>
             <div class="left-content">
@@ -128,11 +127,10 @@
                         <div class="days-dropdown-wrapper">
                             <button class="days-dropdown-btn" tabindex="0">
                                 <span class="selected-day">Days</span>
-                                <img src="./weather-app-main/assets/images/arrow-down-s-line.svg" alt="Dropdown"
-                                    class="dropdown-arrow" />
+                                <img src="/assets/images/arrow-down-s-line.svg" alt="Dropdown" class="dropdown-arrow" />
                             </button>
                             <div class="dropdown-x-days custom-days-dropdown">
-                                <button class="dropdown-day-item " tabindex="0">Monday</button>
+                                <button class="dropdown-day-item" tabindex="0">Monday</button>
                                 <button class="dropdown-day-item" tabindex="0">Tuesday</button>
                                 <button class="dropdown-day-item" tabindex="0">Wednesday</button>
                                 <button class="dropdown-day-item" tabindex="0">Thursday</button>
@@ -141,20 +139,17 @@
                                 <button class="dropdown-day-item" tabindex="0">Sunday</button>
                             </div>
                         </div>
-
-
                     </div>
                     <div class="hourly-forecast-cards">
-                        <!-- add dynammically -->
+                        <!-- add dynamically -->
                     </div>
                 </div>
             </div>
         </div>
         <div class="failed-api">
-            <img src="./weather-app-main/assets/images/forbidden-10030.svg" alt="" height="70px" width="70px">
+            <img src="/assets/images/forbidden-10030.svg" alt="" height="70px" width="70px">
             <h1>Something went wrong</h1>
-            <p>We couldn't connect to the server(api error) please try again <br>in few moments</p>
-        </div>
+            <p>We couldn't connect to the server (API error). Please try again<br>in a few moments</p>
         </div>
     </main>
     <script src="script.js"></script>

@@ -15,7 +15,6 @@ const searchBtn = document.querySelector(".searchbtn button");
 
 let currentWeatherData = null;
 
-
 const celsiusBtn = document.querySelector(".Celsiusbtn");
 const fahrenheitBtn = document.querySelector(".Fahrenheitbtn");
 const kmhBtn = document.querySelector(".kmh-btn");
@@ -23,17 +22,15 @@ const mphBtn = document.querySelector(".mph");
 const mmBtn = document.querySelector(".Millimetersbtn");
 const inchesBtn = document.querySelector(".Inchesbtn");
 
-
 let currentUnits = {
-  temperature: "metric", 
-  wind: "kmh",           
-  precipitation: "mm"  
+  temperature: "metric",
+  wind: "kmh",
+  precipitation: "mm"
 };
 
 unitBtn.addEventListener("click", () => {
   dropdown.classList.toggle("dropdowndisplay");
 });
-
 
 async function fetchWeather(location) {
   try {
@@ -70,7 +67,6 @@ async function fetchWeather(location) {
   }
 }
 
-
 function getWeatherIcon(code) {
   if (code === 0) return "icon-sunny";
   if ([1, 2, 3].includes(code)) return "icon-overcast";
@@ -81,7 +77,6 @@ function getWeatherIcon(code) {
   if ([95, 96, 99].includes(code)) return "icon-storm";
   return "icon-sunny";
 }
-
 
 function convertTemperature(tempC) {
   return currentUnits.temperature === "imperial" ? (tempC * 9) / 5 + 32 : tempC;
@@ -120,7 +115,7 @@ function showCurrentWeather(current, city, country) {
   document.querySelector(".city-info h1").textContent = `${city}, ${country}`;
   document.querySelector(".city-info h3").textContent = formattedDate;
   document.querySelector(".temperauremain h1").textContent = `${temp}${symbol}`;
-  document.querySelector(".temperauremain img").src = `./weather-app-main/assets/icons/${iconFile}.webp`;
+  document.querySelector(".temperauremain img").src = `/assets/icons/${iconFile}.webp`;
 }
 
 function showWeatherStats(current) {
@@ -137,7 +132,6 @@ function showWeatherStats(current) {
   document.querySelector(".Precipitationmain p:nth-child(2)").textContent = `${precipitation} ${precipitationSymbol}`;
 }
 
-
 function dailyForecast(daily) {
   const forecast = document.querySelector(".daily-forcast");
   forecast.innerHTML = "";
@@ -153,13 +147,12 @@ function dailyForecast(daily) {
     forecast.innerHTML += `
       <div class="forecast-card">
         <p class="day">${dayName}</p>
-        <img src="./weather-app-main/assets/icons/${iconFile}.webp" alt="Weather icon">
+        <img src="/assets/icons/${iconFile}.webp" alt="Weather icon">
         <p class="temp">${max}${symbol} / ${min}${symbol}</p>
       </div>
     `;
   });
 }
-
 
 function hourlyForecast(hourly, selectedDay) {
   hourlyMain.innerHTML = "";
@@ -184,7 +177,7 @@ function hourlyForecast(hourly, selectedDay) {
 
     hourlyMain.innerHTML += `
       <div class="hourly-forecast-card">
-        <img src="./weather-app-main/assets/icons/${iconFile}.webp" 
+        <img src="/assets/icons/${iconFile}.webp" 
              alt="icon" 
              style="width: 25px; height: 25px;" />
         <span class="hour-label">${hourLabel}</span>
@@ -193,7 +186,6 @@ function hourlyForecast(hourly, selectedDay) {
     `;
   });
 }
-
 
 dropdownBtn.addEventListener("click", (e) => {
   e.stopPropagation();
@@ -210,7 +202,6 @@ dropdownItems.forEach((item, index) => {
   });
 });
 
-
 form.addEventListener("submit", handleSearch);
 searchBtn.addEventListener("click", handleSearch);
 
@@ -220,7 +211,6 @@ function handleSearch(e) {
   if (!location) return console.log("Enter a valid location");
   fetchWeather(location);
 }
-
 
 function closeDropdown() {
   dropdown.classList.remove("dropdowndisplay");
@@ -261,5 +251,3 @@ inchesBtn.addEventListener("click", () => {
   updateDisplay();
   closeDropdown();
 });
-
-// i add something

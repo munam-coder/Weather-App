@@ -43,7 +43,7 @@ Welcome to the Weather Information App — a modern, responsive web application 
 Below are sample images showcasing both desktop and mobile layouts of the Weather Information App:
 
 ### Desktop Design
-![Desktop Design](./designs./desktop-design-imperial)
+![Desktop Design](design/desktop-design-imperial.jpg)
 
 ### Mobile Design
 ![Mobile Design](path/to/mobile-design-image.png)
@@ -65,3 +65,4 @@ Visit the live project: **[Weather Information App](your-project-link-goes-here)
 ---
 
 Feel free to fork, star, or contribute to this project to enhance its features and usability!
+

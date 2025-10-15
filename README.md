@@ -46,7 +46,7 @@ Below are sample images showcasing both desktop and mobile layouts of the Weathe
 ![Desktop Design](design/desktop-design-imperial.jpg)
 
 ### Mobile Design
-![Mobile Design](path/to/mobile-design-image.png)
+![Mobile Design](design/mobile-design-imperial.jpg)
 
 ---
 
@@ -65,4 +65,5 @@ Visit the live project: **[Weather Information App](your-project-link-goes-here)
 ---
 
 Feel free to fork, star, or contribute to this project to enhance its features and usability!
+
 

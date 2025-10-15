@@ -12,20 +12,20 @@
  /* Fonts */
  @font-face {
      font-family: "DM Sans";
-     src: url("./weather-app-main/assets/fonts/DMSans-VariableFont_opsz\,wght.ttf") format("truetype");
+     src: url("./assets/fonts/DMSans-VariableFont_opsz\,wght.ttf") format("truetype");
      font-weight: 100 900;
      font-style: normal;
  }
 
  @font-face {
      font-family: "DM Sans";
-     src: url("./weather-app-main/assets/fonts/DMSans-Italic-VariableFont_opsz\,wght.ttf") format("turetype");
+     src: url("./assets/fonts/DMSans-Italic-VariableFont_opsz\,wght.ttf") format("turetype");
      font-style: italic;
  }
 
  @font-face {
      font-family: "DM Sans";
-     src: url("../assets/fonts/DM_Sans/DMSans-Italic-VariableFont_opsz%2Cwght.ttf") format("truetype");
+     src: url("./assets/fonts/DM_Sans/DMSans-Italic-VariableFont_opsz%2Cwght.ttf") format("truetype");
      font-weight: 100 900;
      font-style: italic;
  }
@@ -33,7 +33,7 @@
 
  @font-face {
      font-family: "Bricolage Grotesque";
-     src: url("./weather-app-main/assets/fonts/BricolageGrotesque-VariableFont_opsz\,wdth\,wght.ttf") format("truetype");
+     src: url("./assets/fonts/BricolageGrotesque-VariableFont_opsz\,wdth\,wght.ttf") format("truetype");
 
      font-weight: 100 900;
      font-style: normal;
@@ -279,7 +279,7 @@
  .show-wheather-container {
      display: flex;
      gap: 13rem;
-     background: url("./weather-app-main/assets/images/bg-today-large.svg");
+     background: url("./assets/images/bg-today-large.svg");
      background-repeat: no-repeat;
      background-size: cover;
      background-position: center;
@@ -890,7 +890,7 @@
          display: flex;
          flex-direction: column;
          gap: 13rem;
-         background: url(./weather-app-main/assets/images/bg-today-small.svg);
+         background: url(./assets/images/bg-today-small.svg);
          background-repeat: no-repeat;
          background-size: cover;
          background-position: center;
